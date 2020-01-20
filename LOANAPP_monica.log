@@ -1,0 +1,200 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/monicaelgawly/Downloads/metrics/do and log files/LOANAPP_monic
+> a.log
+  log type:  text
+ opened on:  19 Apr 2018, 01:36:19
+
+. use "/Users/monicaelgawly/Downloads/LOANAPP.dta"
+
+. 
+. reg approve black hispan male apr term bankruptcy gdlin hh_expenditures, r
+
+Linear regression                               Number of obs     =      1,968
+                                                F(8, 1959)        =      72.74
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3802
+                                                Root MSE          =     .25867
+
+---------------------------------------------------------------------------------
+                |               Robust
+        approve |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+----------------+----------------------------------------------------------------
+          black |  -.0832246    .025738    -3.23   0.001    -.1337013   -.0327479
+         hispan |  -.0814848   .0344091    -2.37   0.018    -.1489672   -.0140024
+           male |   .0080667    .015247     0.53   0.597    -.0218352    .0379687
+            apr |   .0000547   .0000335     1.63   0.103     -.000011    .0001204
+           term |  -.0000194   .0000954    -0.20   0.839    -.0002064    .0001676
+     bankruptcy |  -.0454592   .0324919    -1.40   0.162    -.1091815    .0182632
+          gdlin |   .6706584   .0363856    18.43   0.000        .5993    .7420169
+hh_expenditures |  -.0012052   .0010511    -1.15   0.252    -.0032666    .0008561
+          _cons |   .2986692   .0539987     5.53   0.000     .1927682    .4045701
+---------------------------------------------------------------------------------
+
+. predict approvrate
+(option xb assumed; fitted values)
+(15 missing values generated)
+
+. sort approvrate
+
+. sum approvrate, detail
+
+                        Fitted values
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .1501102       .1257839
+ 5%      .244849       .1283087
+10%       .84996       .1303715       Obs               1,968
+25%      .931003       .1353147       Sum of Wgt.       1,968
+
+50%     .9465646                      Mean           .8775407
+                        Largest       Std. Dev.       .202182
+75%     .9545963       1.021383
+90%     .9628758       1.028688       Variance       .0408776
+95%     .9694582       1.029386       Skewness      -2.866013
+99%     .9852294       1.190825       Kurtosis       9.559944
+
+. sum approve, detail
+
+                           approve
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               1,983
+25%            1              0       Sum of Wgt.       1,983
+
+50%            1                      Mean            .878467
+                        Largest       Std. Dev.      .3268281
+75%            1              1
+90%            1              1       Variance       .1068166
+95%            1              1       Skewness      -2.316584
+99%            1              1       Kurtosis       6.366562
+
+. reg approve black hispan gdlin, r
+
+Linear regression                               Number of obs     =      1,983
+                                                F(3, 1979)        =     183.37
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3777
+                                                Root MSE          =     .25801
+
+------------------------------------------------------------------------------
+             |               Robust
+     approve |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |  -.0879547   .0253942    -3.46   0.001    -.1377569   -.0381525
+      hispan |  -.0851574   .0340472    -2.50   0.012    -.1519296   -.0183853
+       gdlin |   .6892772    .033956    20.30   0.000     .6226839    .7558706
+       _cons |   .2610012   .0341644     7.64   0.000     .1939992    .3280033
+------------------------------------------------------------------------------
+
+. reg approve black hispan, r
+
+Linear regression                               Number of obs     =      1,983
+                                                F(2, 1980)        =      27.43
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0495
+                                                Root MSE          =      .3188
+
+------------------------------------------------------------------------------
+             |               Robust
+     approve |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |  -.2267144    .034107    -6.65   0.000    -.2936038    -.159825
+      hispan |  -.1429999   .0408399    -3.50   0.000    -.2230935   -.0629062
+       _cons |   .9087657   .0070367   129.15   0.000     .8949656    .9225657
+------------------------------------------------------------------------------
+
+. probit approve black hispan gdlin, r
+
+Iteration 0:   log pseudolikelihood = -733.64726  
+Iteration 1:   log pseudolikelihood = -497.25269  
+Iteration 2:   log pseudolikelihood = -496.61183  
+Iteration 3:   log pseudolikelihood = -496.61158  
+Iteration 4:   log pseudolikelihood = -496.61158  
+
+Probit regression                               Number of obs     =      1,983
+                                                Wald chi2(3)      =     393.24
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -496.61158               Pseudo R2         =     0.3231
+
+------------------------------------------------------------------------------
+             |               Robust
+     approve |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |  -.4917113   .1223809    -4.02   0.000    -.7315735    -.251849
+      hispan |  -.5026078   .1622975    -3.10   0.002     -.820705   -.1845105
+       gdlin |   2.211937   .1195054    18.51   0.000     1.977711    2.446163
+       _cons |  -.5779041   .1143003    -5.06   0.000    -.8019286   -.3538795
+------------------------------------------------------------------------------
+
+. predict racialcomponent, pr
+
+. sum racialcomponent if black == 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |      1,788     .899812    .1700964   .1399572   .9488741
+
+. sum racialcomponent if black == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |        195      .68217    .3220565   .1423962   .8733399
+
+. sum racialcomponent if black == 0 & gdlin == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |      1,671    .9444503    .0180236    .871062   .9488741
+
+. sum racialcomponent if black == 1 & gdlin == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |        144    .8733399           0   .8733399   .8733399
+
+. sum racialcomponent if hispan == 0 & gdlin == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |      1,720    .9425503    .0209267   .8733399   .9488741
+
+. sum racialcomponent if hispan == 1 & gdlin == 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+racialcomp~t |         95     .871062           0    .871062    .871062
+
+. logit approve black hispan gdlin, r
+
+Iteration 0:   log pseudolikelihood = -733.64726  
+Iteration 1:   log pseudolikelihood = -567.51525  
+Iteration 2:   log pseudolikelihood = -499.65477  
+Iteration 3:   log pseudolikelihood = -496.58832  
+Iteration 4:   log pseudolikelihood = -496.58333  
+Iteration 5:   log pseudolikelihood = -496.58333  
+
+Logistic regression                             Number of obs     =      1,983
+                                                Wald chi2(3)      =     351.73
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -496.58333               Pseudo R2         =     0.3231
+
+------------------------------------------------------------------------------
+             |               Robust
+     approve |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |  -.9585783    .232843    -4.12   0.000    -1.414942   -.5022144
+      hispan |     -.9892   .3168287    -3.12   0.002    -1.610173   -.3682271
+       gdlin |   3.820653   .2130302    17.93   0.000     3.403121    4.238184
+       _cons |  -.9061003   .1959751    -4.62   0.000    -1.290204   -.5219963
+------------------------------------------------------------------------------
+
+. log close
+      name:  <unnamed>
+       log:  /Users/monicaelgawly/Downloads/metrics/do and log files/LOANAPP_monic
+> a.log
+  log type:  text
+ closed on:  19 Apr 2018, 13:24:51
+----------------------------------------------------------------------------------
